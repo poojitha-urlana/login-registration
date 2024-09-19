@@ -17,13 +17,22 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+//    @PostMapping("/register")
+//    public ResponseEntity<String> register(@RequestBody Admin admin) {
+//        Admin registeredAdmin = adminService.registerAdmin(admin);
+//        if (registeredAdmin != null) {
+//            return ResponseEntity.ok("Admin registered successfully");
+//        } else {
+//            return ResponseEntity.badRequest().body("Error registering admin");
+//        }
+//    }
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody Admin admin) {
+    public ResponseEntity<Map<String, String>> register(@RequestBody Admin admin) {
         Admin registeredAdmin = adminService.registerAdmin(admin);
         if (registeredAdmin != null) {
-            return ResponseEntity.ok("Admin registered successfully");
+            return ResponseEntity.ok(Map.of("message", "Admin registered successfully"));
         } else {
-            return ResponseEntity.badRequest().body("Error registering admin");
+            return ResponseEntity.badRequest().body(Map.of("message", "Error registering admin"));
         }
     }
 

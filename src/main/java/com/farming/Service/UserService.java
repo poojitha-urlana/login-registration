@@ -1,6 +1,7 @@
 package com.farming.Service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
  // UserService
     public User registerUser(User user) {
@@ -27,7 +28,7 @@ public class UserService {
     public UserDTO loginUser(String username, String password) {
         User user = userRepository.findByUsername(username);
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
-            // Return UserDTO instead of the User entity
+            
             return new UserDTO(user.getUsername(), user.getEmail(), user.getRole());
         }
         return null;
